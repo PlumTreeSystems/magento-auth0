@@ -1,0 +1,12 @@
+<div class="RetailerLogin__Wrapper">
+    <div class="RetailerLogin__ContentText">
+        <span>
+            <?= $block->escapeHtml(__('If you have a retailer account')) ?>
+        </span>
+    </div>
+    <div>
+        <a class="button" href="<?= $block->getUrl('auth/account/authenticate', ['_query' => ['client' => 'customer']]) ?>">
+            <?= $block->escapeHtml(__('Retailer Login')) ?>
+        </a>
+    </div>
+</div>

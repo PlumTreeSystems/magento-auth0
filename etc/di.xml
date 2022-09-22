@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Controller\Account\Logout" type="PTS\Auth0\Overrides\CustomerLogout" />
+    <preference for="Magento\Backend\Controller\Adminhtml\Auth\Login" type="PTS\Auth0\Overrides\UserLogin" />
+    <preference for="Magento\Backend\Controller\Adminhtml\Auth\Logout" type="PTS\Auth0\Overrides\UserLogout" />
+
+    <preference
+        for="Magento\User\Block\User\Edit\Tab\Main"
+        type="PTS\Auth0\Block\Rewrite\User\Edit\Tab\Main"
+    />
+    <preference
+        for="Magento\User\Controller\Adminhtml\User\Save"
+        type="PTS\Auth0\Controller\Adminhtml\User\Save"
+    />
+    <preference
+        for="Magento\User\Controller\Adminhtml\User\Delete"
+        type="PTS\Auth0\Controller\Adminhtml\User\Delete"
+    />
+    <preference
+        for="Magento\User\Block\Role\Tab\Info"
+        type="PTS\Auth0\Block\Rewrite\Role\Tab\Info"
+    />
+    <preference
+        for="Magento\User\Controller\Adminhtml\User\Role\SaveRole"
+        type="PTS\Auth0\Controller\Adminhtml\User\Role\SaveRole"
+    />
+
+    <type name="PTS\Auth0\Controller\Account\Authenticate">
+        <arguments>
+            <argument name="resultRedirectFactory" xsi:type="object">Magento\Framework\Controller\Result\RedirectFactory</argument>
+            <argument name="auth0" xsi:type="object">PTS\Auth0\Helper\Auth0</argument>
+            <argument name="url" xsi:type="object">Magento\Framework\UrlInterface</argument>
+            <argument name="request" xsi:type="object">Magento\Framework\App\Request\Http</argument>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session</argument>
+        </arguments>
+    </type>
+    <type name="PTS\Auth0\Controller\Account\Login">
+        <arguments>
+            <argument name="auth0" xsi:type="object">PTS\Auth0\Helper\Auth0</argument>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Cms\Controller\Index\Index">
+        <plugin
+            name="pts_auth0_cmsindex"
+            type="PTS\Auth0\Interceptors\CmsControllerIndex"
+        />
+    </type>
+</config>
